@@ -3,13 +3,14 @@ package staert
 import (
 	"encoding/json"
 	"errors"
-	"github.com/containous/flaeg"
-	"github.com/manvalls/libkv/store"
-	"github.com/mitchellh/mapstructure"
 	"reflect"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/containous/flaeg"
+	"github.com/manvalls/libkv/store"
+	"github.com/mitchellh/mapstructure"
 )
 
 func TestGenerateMapstructureBasic(t *testing.T) {
@@ -267,7 +268,7 @@ func (s *Mock) Put(key string, value []byte, opts *store.WriteOptions) error {
 	return nil
 }
 
-func (s *Mock) Get(key string) (*store.KVPair, error) {
+func (s *Mock) Get(key string, opts *store.ReadOptions) (*store.KVPair, error) {
 	if s.Error {
 		return nil, errors.New("Error")
 	}
@@ -284,17 +285,17 @@ func (s *Mock) Delete(key string) error {
 }
 
 // Exists mock
-func (s *Mock) Exists(key string) (bool, error) {
+func (s *Mock) Exists(key string, opts *store.ReadOptions) (bool, error) {
 	return false, errors.New("Exists not supported")
 }
 
 // Watch mock
-func (s *Mock) Watch(key string, stopCh <-chan struct{}) (<-chan *store.KVPair, error) {
+func (s *Mock) Watch(key string, stopCh <-chan struct{}, opts *store.ReadOptions) (<-chan *store.KVPair, error) {
 	return nil, errors.New("Watch not supported")
 }
 
 // WatchTree mock
-func (s *Mock) WatchTree(prefix string, stopCh <-chan struct{}) (<-chan []*store.KVPair, error) {
+func (s *Mock) WatchTree(prefix string, stopCh <-chan struct{}, opts *store.ReadOptions) (<-chan []*store.KVPair, error) {
 	return s.WatchTreeMethod(), nil
 }
 
@@ -304,7 +305,7 @@ func (s *Mock) NewLock(key string, options *store.LockOptions) (store.Locker, er
 }
 
 // List mock
-func (s *Mock) List(prefix string) ([]*store.KVPair, error) {
+func (s *Mock) List(prefix string, opts *store.ReadOptions) ([]*store.KVPair, error) {
 	if s.Error {
 		return nil, errors.New("Error")
 	}
