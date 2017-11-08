@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/containous/flaeg"
-	"github.com/docker/libkv/store"
+	"github.com/abronan/libkv/store"
 	"github.com/mitchellh/mapstructure"
 	"reflect"
 	"strings"

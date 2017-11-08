@@ -16,7 +16,7 @@ We developed [Flæg](https://github.com/containous/flaeg) and Stært in order to
  - Three native sources :
 	- Command line arguments using [flæg](https://github.com/containous/flaeg) package
 	- TOML config file using [toml](http://github.com/BurntSushi/toml) package
-	- [Key-Value Store](#kvstore) using [libkv](https://github.com/docker/libkv) and [mapstructure](https://github.com/mitchellh/mapstructure) packages
+	- [Key-Value Store](#kvstore) using [libkv](https://github.com/abronan/libkv) and [mapstructure](https://github.com/mitchellh/mapstructure) packages
  - An Interface to add your own sources
  - Handle pointers field :
 	- You can give a structure of default values for pointers
@@ -177,7 +177,7 @@ Thank you [@debovema](https://github.com/debovema) for this work :)
 
 ## KvStore
 As with Flæg and Toml sources, the configuration structure can be loaded from a Key-Value Store.
-The package [libkv](https://github.com/docker/libkv) provides connection to many KV Store like `Consul`, `Etcd` or `Zookeeper`.
+The package [libkv](https://github.com/abronan/libkv) provides connection to many KV Store like `Consul`, `Etcd` or `Zookeeper`.
 
 The whole configuration structure is stored, using architecture like this pattern :
  - Key : `<prefix1>/<prefix2>/.../<fieldNameLevel1>/<fieldNameLevel2>/.../<fieldName>`
