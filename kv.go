@@ -5,14 +5,15 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"github.com/containous/flaeg"
-	"github.com/abronan/libkv"
-	"github.com/abronan/libkv/store"
-	"github.com/mitchellh/mapstructure"
 	"reflect"
 	"sort"
 	"strconv"
 	"strings"
+
+	"github.com/containous/flaeg"
+	"github.com/manvalls/libkv"
+	"github.com/manvalls/libkv/store"
+	"github.com/mitchellh/mapstructure"
 )
 
 // KvSource implements Source

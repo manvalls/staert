@@ -16,7 +16,7 @@ We developed [Flæg](https://github.com/containous/flaeg) and Stært in order to
  - Three native sources :
 	- Command line arguments using [flæg](https://github.com/containous/flaeg) package
 	- TOML config file using [toml](http://github.com/BurntSushi/toml) package
-	- [Key-Value Store](#kvstore) using [libkv](https://github.com/abronan/libkv) and [mapstructure](https://github.com/mitchellh/mapstructure) packages
+	- [Key-Value Store](#kvstore) using [libkv](https://github.com/manvalls/libkv) and [mapstructure](https://github.com/mitchellh/mapstructure) packages
  - An Interface to add your own sources
  - Handle pointers field :
 	- You can give a structure of default values for pointers
@@ -56,7 +56,7 @@ type PointerSubConfiguration struct {
 }
 ```
 
-Let's initialize it: 
+Let's initialize it:
 ```go
  func main() {
 	//Init with default value
@@ -111,8 +111,8 @@ Add TOML and flæg sources
 ```go
     s.AddSource(toml)
     s.AddSource(f)
-``` 
-NB : You can change order, so that, flaeg configuration will overwrite toml one 
+```
+NB : You can change order, so that, flaeg configuration will overwrite toml one
 ### Load your configuration
 Just call LoadConfig function :
 ```go
@@ -120,9 +120,9 @@ Just call LoadConfig function :
     if err != nil {
 		//OOPS
 	}
-	//DO WHAT YOU WANT WITH loadedConfig 
+	//DO WHAT YOU WANT WITH loadedConfig
 	//OR CALL RUN FUNC
-``` 
+```
 
 ### You can call Run
 Run function will call the func `run()` from the command :
@@ -131,7 +131,7 @@ Run function will call the func `run()` from the command :
 		//OOPS
 	}
  }
-``` 
+```
  NB : If you didn't call `LoadConfig()` before, your func `run()` will use your original configuration
 ### Let's run example
 
@@ -139,7 +139,7 @@ TOML file `./toml/example.toml` :
 ```toml
 IntField= 2
 [PointerField]
-``` 
+```
 We can run the example program using folowing CLI arguments :
 ```
 $ ./example --stringfield=owerwrittenFromFlag --pointerfield.floatfield=55.55
@@ -149,7 +149,7 @@ PointerField contains:&{BoolField:true FloatField:55.55}
 
 ```
 
-## Full example : 
+## Full example :
 [Tagoæl](https://github.com/debovema/tagoael) is a trivial example which shows how Stært can be use.
 This funny golang progam takes its configuration from both TOML and Flaeg sources to display messages.
 ```shell
@@ -177,12 +177,12 @@ Thank you [@debovema](https://github.com/debovema) for this work :)
 
 ## KvStore
 As with Flæg and Toml sources, the configuration structure can be loaded from a Key-Value Store.
-The package [libkv](https://github.com/abronan/libkv) provides connection to many KV Store like `Consul`, `Etcd` or `Zookeeper`.
+The package [libkv](https://github.com/manvalls/libkv) provides connection to many KV Store like `Consul`, `Etcd` or `Zookeeper`.
 
 The whole configuration structure is stored, using architecture like this pattern :
  - Key : `<prefix1>/<prefix2>/.../<fieldNameLevel1>/<fieldNameLevel2>/.../<fieldName>`
  - Value : `<value>`
- 
+
 It handles :
  - All [mapstructure](https://github.com/mitchellh/mapstructure) features(`bool`, `int`, ... , Squashed Embedded Sub `struct`, Pointer).
  - Maps with pattern : `.../<MapFieldName>/<mapKey>` -> `<mapValue>` (Struct as key not supported)
@@ -191,7 +191,7 @@ It handles :
 Note : Hopefully, we provide the function `StoreConfig` to store your configuration structure ;)
 
 ### KvSource
-KvSource implements Source: 
+KvSource implements Source:
 
 ```go
 type KvSource struct {
@@ -200,7 +200,7 @@ type KvSource struct {
 }
 ```
 
-### Initialize 
+### Initialize
 It can be initialized like this :
 ```go
 	kv, err := staert.NewKvSource(backend store.Backend, addrs []string, options *store.Config, prefix string)
